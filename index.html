@@ -10,58 +10,69 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title>TODOs List</title>
+    <title>TODO List</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">TODOs List</a>
-        <span class="navbar-text" id="clock"></span>
+        <a class="navbar-brand" href="#">TODO List</a>
+        <span class="navbar-text" id="clock" style="margin-left: 8px;"></span>
     </nav>
 
     <div class="container my-4">
-        <h2 class="text-center">TODOs List</h2>
-         
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" aria-describedby="emailHelp">
-                <small id="emailHelp" class="form-text text-muted">Add an item to the list</small>
-            </div>
+        <h2 class="text-center">TODO List</h2>
 
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea class="form-control" id="description" rows="3"></textarea>
-            </div>
-            
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">Add an item to the list</small>
+        </div>
 
-            <button   id="add" class="btn btn-primary">Add to list</button>
-            <button  id="clear" class="btn btn-primary" onclick="clearStorage()">Clear list</button>
-         
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" rows="3"></textarea>
+        </div>
+
+
+        <button id="add" class="btn btn-primary">Add</button>
+        <button id="clear" class="btn btn-primary" onclick="clearStorage()">Clear list</button>
+
 
         <div id="items" class="my-4">
             <h2>Your Items</h2>
             <table class="table">
                 <thead>
-                  <tr>
-                    <th scope="col">SNo</th>
-                    <th scope="col">Item Title</th>
-                    <th scope="col">Item Description</th> 
-                    <th scope="col">Actions</th> 
-                  </tr>
+                    <tr>
+                        <th scope="col">SrNo.</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Action</th>
+                    </tr>
                 </thead>
                 <tbody id="tableBody">
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Get some Coffee</td>
-                    <td>You need coffee as you are a coder</td> 
-                    <td><button class="btn btn-sm btn-primary">Delete</button></td> 
-                  </tr>
-                  
+                    <tr>
+                        <th scope="row"></th>
+                        <td></td>
+                        <td></td>
+                        <td><button class="btn btn-sm btn-primary"></button></td>
+                    </tr>
+
                 </tbody>
-              </table>
+            </table>
         </div>
     </div>
-    
+
+    <footer id="footer">
+        <div class="container text-center bg-dark text-light pt-3 mt-5 rounded">
+            <p>
+                Created by
+                <a class="text-success text-decoration-none" href="https://github.com/codernakul"
+                    target="”_blank”">Nakul Singh</a>
+            </p>
+            <br>
+        </div>
+    </footer>
+
     <script>
         setInterval(showTime, 1000);
         function showTime() {
@@ -70,7 +81,7 @@
             let min = time.getMinutes();
             let sec = time.getSeconds();
             am_pm = " AM";
- 
+
             if (hour > 12) {
                 hour -= 12;
                 am_pm = " PM";
@@ -79,18 +90,18 @@
                 hr = 12;
                 am_pm = " AM";
             }
- 
+
             hour = hour < 10 ? "0" + hour : hour;
             min = min < 10 ? "0" + min : min;
             sec = sec < 10 ? "0" + sec : sec;
- 
+
             let currentTime = hour + ":"
                 + min + ":" + sec + am_pm;
- 
+
             document.getElementById("clock")
                 .innerHTML = currentTime;
         }
- 
+
         showTime();
     </script>
 
@@ -105,69 +116,68 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-        <script>
-            function getAndUpdate(){
-                console.log("Updating List...");
-                tit = document.getElementById('title').value;
-                desc = document.getElementById('description').value;
-                if (localStorage.getItem('itemsJson')==null){
-                    itemJsonArray = [];
-                    itemJsonArray.push([tit, desc]);
-                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
-                }
-                else{
-                    itemJsonArrayStr = localStorage.getItem('itemsJson')
-                    itemJsonArray = JSON.parse(itemJsonArrayStr);
-                    itemJsonArray.push([tit, desc]);
-                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
-                }
-                update();
+    <script>
+        function getAndUpdate() {
+            console.log("Updating List...");
+            tit = document.getElementById('title').value;
+            desc = document.getElementById('description').value;
+            if (localStorage.getItem('itemsJson') == null) {
+                itemJsonArray = [];
+                itemJsonArray.push([tit, desc]);
+                localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
             }
+            else {
+                itemJsonArrayStr = localStorage.getItem('itemsJson')
+                itemJsonArray = JSON.parse(itemJsonArrayStr);
+                itemJsonArray.push([tit, desc]);
+                localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+            }
+            update();
+        }
 
-            function update(){
-                if (localStorage.getItem('itemsJson')==null){
-                    itemJsonArray = []; 
-                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
-                } 
-                else{
-                    itemJsonArrayStr = localStorage.getItem('itemsJson')
-                    itemJsonArray = JSON.parse(itemJsonArrayStr); 
-                }
-                // Populate the table
-                let tableBody = document.getElementById("tableBody");
-                let str = "";
-                itemJsonArray.forEach((element, index) => {
-                    str += `
+        function update() {
+            if (localStorage.getItem('itemsJson') == null) {
+                itemJsonArray = [];
+                localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+            }
+            else {
+                itemJsonArrayStr = localStorage.getItem('itemsJson')
+                itemJsonArray = JSON.parse(itemJsonArrayStr);
+            }
+            // Populate the table
+            let tableBody = document.getElementById("tableBody");
+            let str = "";
+            itemJsonArray.forEach((element, index) => {
+                str += `
                     <tr>
                     <th scope="row">${index + 1}</th>
                     <td>${element[0]}</td>
                     <td>${element[1]}</td> 
                     <td><button class="btn btn-sm btn-primary" onclick="deleted(${index})">Delete</button></td> 
-                    </tr>`; 
-                });
-                tableBody.innerHTML = str;
-            }
-            add = document.getElementById("add");
-            add.addEventListener("click", getAndUpdate);
+                    </tr>`;
+            });
+            tableBody.innerHTML = str;
+        }
+        add = document.getElementById("add");
+        add.addEventListener("click", getAndUpdate);
+        update();
+        function deleted(itemIndex) {
+            console.log("Delete", itemIndex);
+            itemJsonArrayStr = localStorage.getItem('itemsJson')
+            itemJsonArray = JSON.parse(itemJsonArrayStr);
+            itemJsonArray.splice(itemIndex, 1);
+            localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray));
             update();
-            function deleted(itemIndex){
-                console.log("Delete", itemIndex);
-                itemJsonArrayStr = localStorage.getItem('itemsJson')
-                itemJsonArray = JSON.parse(itemJsonArrayStr);
-                // Delete itemIndex element from the array
-                itemJsonArray.splice(itemIndex, 1);
-                localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray));
-                update();
 
-            }
-            function clearStorage(){
-                if (confirm("Do you areally want to clear?")){
+        }
+        function clearStorage() {
+            if (confirm("Do you areally want to clear?")) {
                 console.log('Clearing the storage')
                 localStorage.clear();
                 update()
-                }
             }
-        </script>
+        }
+    </script>
 </body>
 
 </html>
